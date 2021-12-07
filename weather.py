@@ -20,7 +20,7 @@ def openweather_output(data):
 
     main_data = data['main']
     print(' Temperature:\t', round(float(main_data['temp']) - 273, 2), '\u2103')
-    print(' Feel like:\t', round(float(main_data['feels_like']) - 273, 2), '\u2103')
+    print(' Feels like:\t', round(float(main_data['feels_like']) - 273, 2), '\u2103')
     print(' Pressure:\t', int(main_data['pressure']), 'hPa')
     print(' Humidity:\t', int(main_data['humidity']), '%')
 
@@ -30,14 +30,14 @@ def openweather_output(data):
 
     sun_data = data['sys']
     print(' Sunrise:\t', datetime.fromtimestamp(sun_data['sunrise']).time())
-    print(' Sunrset:\t', datetime.fromtimestamp(sun_data['sunset']).time())
+    print(' Sunset:\t', datetime.fromtimestamp(sun_data['sunset']).time())
 
 def response_api(url_master, arguments):
 
     try:
         url =  url_master
         for key, value in arguments.items():
-            url += '&' + str(key) + '=' + str(value)
+            url += f'&{str(key)}={str(value)}'
         response = requests.get(url)
         return json.loads(response.text)
 
@@ -61,6 +61,7 @@ def parser():
     return parser.parse_args()
 
 args = parser()
+
 for arg in args.c:
     print()
     try:
